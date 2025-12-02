@@ -7,6 +7,29 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
+  resources :trips do
+    resources :chats, only: [:create]  # pas sure
+  end
+
+  # Pour les chats (nested dans trips) :
+  # GET /trips/:trip_id/chats - Liste les chats d'un voyage
+  # GET /trips/:trip_id/chats/new - Nouveau chat pour ce voyage
+  # POST /trips/:trip_id/chats - Créer un chat pour ce voyage
+
+  # ils nous faut des routes chats :
+  # /chats post create
+  # /chats/:id  get show
+
+
+  # chats (en dehors du nesting pour show /edit/upate/destroy)
+  resources :chats, only: [:show, :edit, :update, :destroy] do
+    resources :messages, only: [:create]
+  end
+
+  # pages
+  get "profile", to: "pages#profile"
+  # get "home", to: "pages#home" # on peut ne pas le faire, et landing to connect direct
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
