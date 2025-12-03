@@ -1,0 +1,10 @@
+<div class="container mt-4">
+  <h1>Modifier le voyage</h1>
+
+  <%= render "form", trip: @trip %>
+
+  <%= link_to "Retour au voyage", trip_path(@trip), class: "btn btn-link mt-3" %>
+</div>
+
+<%# va venir remettre le form de new/create pour modification
++ form_with model gère toute la modif %>

@@ -1,0 +1,30 @@
+<div class="container mt-4">
+  <h1>Voyage à <%= @trip.destination %></h1>
+
+  <ul class="list-group mb-3">
+    <li class="list-group-item">
+      <strong>Ville de départ :</strong> <%= @trip.departure_city %>
+    </li>
+    <li class="list-group-item">
+      <strong>Dates :</strong>
+      du <%= @trip.start_date %> au <%= @trip.end_date %>
+    </li>
+    <li class="list-group-item">
+      <strong>Nombre de voyageurs :</strong> <%= @trip.traveler_count %>
+    </li>
+    <li class="list-group-item">
+      <strong>Budget :</strong> <%= @trip.budget %> €
+    </li>
+  </ul>
+
+  <div class="d-flex gap-2 mb-3">
+    <%= link_to "Modifier ce voyage", edit_trip_path(@trip), class: "btn btn-outline-primary" %>
+    <%= link_to "Retour à mes voyages", trips_path, class: "btn btn-secondary" %>
+    <%= button_to "Supprimer ce voyage", trip_path(@trip),
+                  method: :delete,
+                  data: { confirm: "Tu es sûr de vouloir supprimer ce voyage ?" },
+                  class: "btn btn-danger" %>
+  </div>
+
+  <%# ici bouton pour démarrer chat avec IA + link_to %>
+</div>

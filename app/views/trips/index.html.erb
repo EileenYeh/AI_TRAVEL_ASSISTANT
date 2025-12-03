@@ -1,0 +1,27 @@
+<div class="container mt-4">
+  <h1 class="mb-3">Mes voyages</h1>
+
+  <%= link_to "Créer un nouveau voyage", new_trip_path, class: "btn btn-primary mb-4" %>
+
+  <% if @trips.any? %>
+    <div class="row">
+      <% @trips.each do |trip| %>
+        <div class="col-md-4 mb-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title"><%= trip.destination %></h5>
+              <p class="card-text">
+                Du <%= trip.start_date %> au <%= trip.end_date %><br>
+                <strong>Voyageurs :</strong> <%= trip.traveler_count %><br>
+                <strong>Budget :</strong> <%= trip.budget %> €
+              </p>
+              <%= link_to "Voir le voyage", trip_path(trip), class: "btn btn-sm btn-outline-primary" %>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  <% else %>
+    <p>Tu n'as pas encore créé de voyage.</p>
+  <% end %>
+</div>
