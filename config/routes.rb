@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  get 'chats/create'
-  get 'chats/show'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -22,7 +20,7 @@ Rails.application.routes.draw do
 
 
   # chats (en dehors du nesting pour show /edit/upate/destroy)
-  resources :chats, only: [:show, :create] do
+  resources :chats, only: [:index, :show, :create] do
     resources :messages, only: [:create]
   end
 
