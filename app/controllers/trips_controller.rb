@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
 
-  before_action :set_trip, only: %i[show edit update destroy]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy]
   before_action :authenticate_user! # pour model user et current_user ici
 
   def index
@@ -51,11 +51,11 @@ class TripsController < ApplicationController
     params.require(:trip).permit(
       :start_date,
       :end_date,
-      :destination_country,
+      :destination,
       :departure_city,
-      :travelers_count,
+      :traveler_count,
       :budget
     )
-  end
+end
 
 end
