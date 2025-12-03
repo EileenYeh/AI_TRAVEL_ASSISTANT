@@ -1,23 +1,29 @@
 class MessagesController < ApplicationController
-
   def create
     @chat = Chat.find(params[:chat_id])
-    @message = @chat.messages.create!(
-      role: `user`,
-      content: params[:content]
-    )
+    @message = Message.new(message_params)
+    @message.role = "user"
+    @message.chat = @chat
 
-    redirect_to chat_ai_chemin(@chat)
+    if @message.save
+      ruby_llm_chat = RubyLLM.chat
+      response = ruby_llm_chat.ask(@message.content)
+
+      Message.create!(
+        role: "assistant",
+        chat: @chat,
+        content: response.content
+      )
+
+      redirect_to chat_path(@chat)
+    else
+      render "chats/show", status: :unprocessable_entity
+    end
   end
 
-  def ai_response
-    @chat = Chat.find(params[:id])
-    @chat.messages.create!(
-      role: `assistant`,
-      content: ai_text
-    )
+  private
 
-    redirect_to chat_chemin(@chat)
+  def message_params
+    params.require(:message).permit(:content)
   end
-
 end
