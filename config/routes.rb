@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'chats/create'
+  get 'chats/show'
   devise_for :users
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -7,9 +9,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  resources :trips do
-    resources :chats, only: [:create]  # pas sure
-  end
+
 
   # Pour les chats (nested dans trips) :
   # GET /trips/:trip_id/chats - Liste les chats d'un voyage
@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
 
   # chats (en dehors du nesting pour show /edit/upate/destroy)
-  resources :chats, only: [:show, :edit, :update, :destroy] do
+  resources :chats, only: [:show, :create] do
     resources :messages, only: [:create]
   end
 
