@@ -1,0 +1,40 @@
+<!-- app/views/chats/index.html.erb -->
+<div class="container">
+  <h1>My Chat Conversations</h1>
+  <!-- button create -->
+  <div class="mb-4">
+    <% if Trip.any? %>
+      <%= link_to "Create New Chat", "#", class: "btn btn-primary disabled" %>
+      <%# à remplcer # par le root de trips pour création de chats %>
+      <small class="text-muted ms-2">Select a trip to start chatting</small>
+    <% else %>
+      <p class="text-muted">Create a trip first to start a chat</p>
+    <% end %>
+  </div>
+
+  <% if @chats.any? %>
+    <div class="list-group">
+      <% @chats.each do |chat| %>
+        <%= link_to chat_path(chat), class: "list-group-item list-group-item-action" do %>
+          <div class="d-flex w-100 justify-content-between">
+            <h5 class="mb-1"><%= chat.title %></h5>
+            <small><%= time_ago_in_words(chat.created_at) %> ago</small>
+          </div>
+          <p class="mb-1">
+            <small class="text-muted">
+              Trip: <%= chat.trip.destination %> |
+              Messages: <%= chat.messages.count %>
+            </small>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      <p>You don't have any chats yet.</p>
+      <%# <%= link_to "Browse Trips", trips_path, class: "btn btn-primary" %>
+      <%# en attendant d'avoir le trips_path %>
+      <%= link_to "Create Test Trip", "#", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
