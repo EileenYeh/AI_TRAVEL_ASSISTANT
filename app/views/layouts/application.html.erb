@@ -10,32 +10,34 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column min-vh-100">
     <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
 
     <header>
       <%= render "shared/navbar" %>
     </header>
 
-    <main id="main-content">
-      <div class="container-fluid">
-        <div class="row" data-controller="toggle"> <%# ici pour gérer toute la page car sidenav dynamique %>
-          <nav class="col-md-2 sidenav pt-3" data-toggle-target="hideable"> <%# puis, data-target ici%>
-            <% if user_signed_in? %>
-              <%= render "shared/sidenav", trips: current_user.trips %>
-            <% end %>
-          </nav>
+      <main id="main-content"class="flex-grow-1">
+    <div class="container-fluid">
+      <div class="row" data-controller="toggle">
+        <nav class="col-md-2 sidenav pt-3" data-toggle-target="hideable">
+          <% if user_signed_in? %>
+            <%= render "shared/sidenav", trips: current_user.trips %>
+          <% end %>
+        </nav>
 
-          <div class="col-md-10 my-4">
-            <%= render "shared/flashes" %>
-             <%= link_to "#", class: "d-none nav-link text-dark",
-                   data: {action: "click->toggle#call", toggle_target: "show"} do %> <%# toggle target show ici, hideable plus haut + static targets dans controller%>
+        <div class="col-md-10 my-4">
+          <%= render "shared/flashes" %>
+          <%= link_to "#", class: "d-none nav-link text-dark",
+                data: { action: "click->toggle#call", toggle_target: "show" } do %>
             <i class="fa-regular fa-square-caret-right"></i>
-            <% end %>
-            <%= yield %>
-          </div>
+          <% end %>
+          <%= yield %>
         </div>
       </div>
-    </main>
+    </div>
+  </main>
+
+  <%= render "shared/footer" %>
   </body>
 </html>
