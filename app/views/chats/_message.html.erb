@@ -1,0 +1,38 @@
+<!-- app/views/chats/_message.html.erb -->
+<div class="message-wrapper">
+  <% if message.role == "user" %>
+    <!-- 用户消息（右侧） -->
+    <div class="d-flex justify-content-end">
+      <div class="message-bubble user-message">
+        <div class="message-content">
+          <%= simple_format(message.content) %>
+        </div>
+        <small class="message-time">
+          <%= message.created_at.strftime("%H:%M") %>
+        </small>
+      </div>
+      <div class="message-avatar ms-3">
+        <div class="avatar-circle bg-primary text-white">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <!-- Assistant消息（左侧） -->
+    <div class="d-flex justify-content-start">
+      <div class="message-avatar me-3">
+        <div class="avatar-circle bg-success text-white">
+          <i class="fas fa-robot"></i>
+        </div>
+      </div>
+      <div class="message-bubble assistant-message">
+        <div class="message-content">
+          <%= render_markdown(message.content) %>
+        </div>
+        <small class="message-time">
+          <%= message.created_at.strftime("%H:%M") %>
+        </small>
+      </div>
+    </div>
+  <% end %>
+</div>

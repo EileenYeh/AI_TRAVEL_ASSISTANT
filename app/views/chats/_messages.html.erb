@@ -1,0 +1,6 @@
+<!-- app/views/chats/_messages.html.erb -->
+<div id="messages" class="mb-4">
+  <% messages.each do |message| %>
+    <%= render "message", message: message %>
+  <% end %>
+</div>

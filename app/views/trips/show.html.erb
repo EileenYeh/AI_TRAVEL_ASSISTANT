@@ -13,7 +13,7 @@
       <strong>Nombre de voyageurs :</strong> <%= @trip.traveler_count %>
     </li>
     <li class="list-group-item">
-      <strong>Budget :</strong> <%= @trip.budget %> €
+      <strong>Budget :</strong> <%= format_budget(@trip.budget) %>
     </li>
   </ul>
 

@@ -14,6 +14,8 @@ class MessagesController < ApplicationController
         chat: @chat,
         content: response.content
       )
+      # juste cette ligne qui change le titre:
+      @chat.generate_title_from_first_message
 
       redirect_to chat_path(@chat)
     else

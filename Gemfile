@@ -28,6 +28,8 @@ gem "jbuilder"
 
 gem "devise"
 gem "ruby_llm", "~> 1.2.0"
+gem 'redcarpet'
+gem 'rouge'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
