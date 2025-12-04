@@ -9,21 +9,35 @@
     Travelers: <%= @chat.trip.traveler_count %> | Budget: $<%= @chat.trip.budget %>
   </p>
 
-  <!-- 消息列表 -->
+  <!-- Liste des messages -->
   <div id="messages" class="mb-4">
     <% @messages.each do |message| %>
       <div class="message <%= message.role %>">
         <strong><%= message.role == "user" ? "Vous" : "Assistant" %>:</strong>
-        <%= message.content %>
+        <p><%= message.content %></p>
+
+        <!-- Affichage des fichiers -->
+        <% if message.files.attached? %>
+          <% message.files.each do |file| %>
+            <% if file.image? %>
+              <%= image_tag file, style: "max-width: 200px;", class: "mb-2 d-block" %>
+            <% else %>
+              <%= link_to file.filename.to_s, url_for(file), class: "d-block mb-2", target: "_blank" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
       </div>
     <% end %>
   </div>
 
-  <!-- 消息输入表单 -->
+  <!-- Formulaire envoi -->
   <div id="new_message">
-    <%= simple_form_for [@chat, @message] do |f| %>
-      <%= f.input :content, label: false, placeholder: "Posez votre question..." %>
-      <%= f.button :submit, "Envoyer", class: "btn btn-primary" %>
+    <%= form_with model: [@chat, @message], multipart: true, local: true do |f| %>
+      <%= f.text_area :content, placeholder: "Posez votre question...", class: "form-control mb-2" %>
+      <%= f.file_field :files, multiple: true, class: "form-control mb-2" %>
+      <%= f.submit "Envoyer", class: "btn btn-primary" %>
     <% end %>
   </div>
+
 </div>
