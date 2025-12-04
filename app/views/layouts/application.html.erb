@@ -29,7 +29,7 @@
           <div class="col-md-10 my-4">
             <%= render "shared/flashes" %>
              <%= link_to "#", class: "d-none nav-link text-dark",
-                   data: {toggle_target: "show"} do %> <%# toggle target show ici, hideable plus haut + static targets dans controller%>
+                   data: {action: "click->toggle#call", toggle_target: "show"} do %> <%# toggle target show ici, hideable plus haut + static targets dans controller%>
             <i class="fa-regular fa-square-caret-right"></i>
             <% end %>
             <%= yield %>
