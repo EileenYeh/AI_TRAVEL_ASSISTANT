@@ -1,29 +1,39 @@
-class MessagesController < ApplicationController
-  def create          #creation message user
-    @chat = Chat.find(params[:chat_id])
-    @message = Message.new(message_params)
-    @message.role = "user"
-    @message.chat = @chat
+def create
+  @chat = Chat.find(params[:chat_id])
+  @message = Message.new(message_params)
+  @message.role = "user"
+  @message.chat = @chat
 
-    if @message.save    #message du user enregistrer pour que l IA réponde
-      ruby_llm_chat = RubyLLM.chat
-      response = ruby_llm_chat.ask(@message.content)
+  if @message.save   # Sauvegarde du message utilisateur
 
-      Message.create!(    #créer message de l IA
-        role: "assistant",
-        chat: @chat,
-        content: response.content
-      )
+    # Construire la conversation avec contexte
+    conversation = [
+      {
+        role: "system",
+        content: "Tu es une IA spécialisée dans la planification de voyage.
+        Tu donnes : météo, conseils, activités, idées de destinations, budgets,
+        transports, décalages horaires. Tu te souviens du contexte du chat."
+      }
+    ]
 
-      redirect_to chat_path(@chat)  #redirige vers la page du tchat
-    else
-      render "chats/show", status: :unprocessable_entity  #si jamais y a une erreur ca devrait afficher un message
+    conversation += @chat.messages.order(:created_at).map do |msg|
+      { role: msg.role, content: msg.content }
     end
-  end
 
-  private
+    # Appel à l'IA
+    ruby_llm_chat = RubyLLM.chat
+    response = ruby_llm_chat.chat(messages: conversation)
 
-  def message_params
-    params.require(:message).permit(:content, files: []) #pour mettre plusieurs fichiers)
+    # Création du message de l’IA
+    Message.create!(
+      role: "assistant",
+      chat: @chat,
+      content: response.content
+    )
+
+    redirect_to chat_path(@chat)
+
+  else
+    render "chats/show", status: :unprocessable_entity
   end
 end
