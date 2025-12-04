@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-sm navbar-light navbar-lewagon">
+  <nav class="navbar navbar-expand-sm navbar-light navbar-lewagon" px-6>
   <div class="container-fluid">
-    <%= link_to "#", class: "navbar-brand" do %>
+    <%= link_to "#", class: "navbar-brand" do %> <%# !!!!!! METTRE URL HEROKU%>
       <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
     <% end %>
 
@@ -11,18 +11,18 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
-          <li class="nav-item active">
-            <%= link_to "Home", root_path, class: "nav-link" %>
+          <li class="nav-item active" >
+            <%= link_to "Home", root_path, class: "nav-link" %> <%# !!!!!! METTRE LIEN HOMEPAGE%>
             <%# <%= link_to "Home", "#", class: "nav-link" %>
           </li>
-          <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+          <li class="nav-item" >
+            <%= link_to "Mes voyages", trips_path, class: "nav-link" %> <%# !!!!!! METTRE L'URL /TRIPS%>
           </li>
           <%# ajout de link to pour chats_path (besoin d'index en conséquent)%>
-          <li class="nav-item">
-            <%= link_to "My Chats", chats_path, class: "nav-link" %>
+          <li class="nav-item" >
+            <%= link_to "Mon assistant IA ", chats_path, class: "nav-link" %>
           </li>
-          <li class="nav-item dropdown">
+          <li class="nav-item dropdown" >
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
           </a>
