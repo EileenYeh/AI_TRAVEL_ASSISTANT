@@ -10,15 +10,32 @@
     <%= javascript_importmap_tags %>
   </head>
 
-<body>
-  <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
-  <header>
-    <%= render "shared/navbar" %> <!-- 👈 Add this for navbar -->
-    <%= render "shared/flashes" %>
-  </header>
+  <body>
+    <%= link_to "Skip to main content", "#main-content", class: "visually-hidden-focusable" %>
 
-  <main id="main-content">
-    <%= yield %>
-  </main>
-</body>
+    <header>
+      <%= render "shared/navbar" %>
+    </header>
+
+    <main id="main-content">
+      <div class="container-fluid">
+        <div class="row" data-controller="toggle"> <%# ici pour gérer toute la page car sidenav dynamique %>
+          <nav class="col-md-2 sidenav pt-3" data-toggle-target="hideable"> <%# puis, data-target ici%>
+            <% if user_signed_in? %>
+              <%= render "shared/sidenav", trips: current_user.trips %>
+            <% end %>
+          </nav>
+
+          <div class="col-md-10 my-4">
+            <%= render "shared/flashes" %>
+             <%= link_to "#", class: "d-none nav-link text-dark",
+                   data: {toggle_target: "show"} do %> <%# toggle target show ici, hideable plus haut + static targets dans controller%>
+            <i class="fa-regular fa-square-caret-right"></i>
+            <% end %>
+            <%= yield %>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
 </html>
