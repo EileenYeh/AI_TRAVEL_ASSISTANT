@@ -1,39 +1,81 @@
-<!-- app/views/chats/index.html.erb -->
+<!-- app/views/chats/index.html.erb màj 04/12/2025-->
 <div class="container">
   <h1>My Chat Conversations</h1>
-  <!-- button create -->
-  <div class="mb-4">
-    <% if Trip.any? %>
-      <%# à remplcer # par le root de trips pour création de chats %>
-      <small class="text-muted ms-2">Select a trip to start chatting</small>
-    <% else %>
-      <p class="text-muted">Create a trip first to start a chat</p>
-    <% end %>
-  </div>
 
   <% if @chats.any? %>
     <div class="list-group">
       <% @chats.each do |chat| %>
-        <%= link_to chat_path(chat), class: "list-group-item list-group-item-action" do %>
-          <div class="d-flex w-100 justify-content-between">
-            <h5 class="mb-1"><%= chat.title %></h5>
-            <small><%= time_ago_in_words(chat.created_at) %> ago</small>
+        <!-- card container-->
+        <div class="list-group-item list-group-item-action position-relative chat-card">
+
+          <!-- petit croix en haut à droite-->
+          <div class="chat-close-icon">
+            <%= button_to chat_path(chat),
+                method: :delete,
+                class: "btn btn-link text-muted p-0 border-0 bg-transparent",
+                data: {
+                  confirm: "Delete this chat and all messages?",
+                  bs_toggle: "tooltip",
+                  bs_title: "Delete chat",
+                  bs_placement: "right"
+                },
+                aria: { label: "Delete" } do %>
+              <i class="fas fa-times"></i>
+            <% end %>
           </div>
-          <p class="mb-1">
+
+          <!-- main content zone -->
+          <%= link_to chat_path(chat), class: "text-decoration-none text-dark chat-content" do %>
+            <div class="mb-2">
+              <h5 class="mb-1 chat-title"><%= chat.title %></h5>
+              <p class="mb-0">
+                <small class="text-muted">
+                  <i class="fas fa-map-marker-alt me-1"></i><%= chat.trip.destination %>
+                  <span class="mx-2">•</span>
+                  <i class="fas fa-comments me-1"></i><%= chat.messages.count %> messages
+                </small>
+              </p>
+            </div>
+          <% end %>
+
+          <!-- chat time spot-->
+          <div class="chat-time">
             <small class="text-muted">
-              Trip: <%= chat.trip.destination %> |
-              Messages: <%= chat.messages.count %>
+              <%= time_ago_in_words(chat.created_at) %> ago
             </small>
-          </p>
-        <% end %>
+          </div>
+
+        </div>
       <% end %>
     </div>
   <% else %>
     <div class="alert alert-info">
       <p>You don't have any chats yet.</p>
-      <%# <%= link_to "Browse Trips", trips_path, class: "btn btn-primary" %>
-      <%# en attendant d'avoir le trips_path %>
       <%= link_to "Create Test Trip", "#", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>
+
+<%# un peu de javascript %>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // initialize tooltip
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+      return new bootstrap.Tooltip(tooltipTriggerEl)
+    })
+
+    // delete animation
+    document.querySelectorAll('.chat-close-icon .btn-link').forEach(button => {
+      button.addEventListener('click', function(e) {
+        if (!confirm("Delete this chat and all messages?")) {
+          e.preventDefault();
+          return false;
+        }
+
+        const card = this.closest('.chat-card');
+        card.classList.add('chat-deleting');
+      });
+    });
+  });
+</script>

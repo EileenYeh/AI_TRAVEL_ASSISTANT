@@ -1,0 +1,44 @@
+<!-- app/views/chats/_message_form.html.erb -->
+<div class="message-form">
+  <%= simple_form_for [chat, message] do |f| %>
+    <div class="input-group">
+      <%= f.input :content,
+                  label: false,
+                  placeholder: "Type your message...",
+                  input_html: {
+                    class: "form-control",
+                    rows: 3,
+                    id: "message_content_#{chat.id}"
+                  },
+                  wrapper: false %>
+
+      <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane me-1"></i>Send
+      </button>
+    </div>
+
+    <small class="text-muted mt-2 d-block">
+      <i class="fas fa-info-circle me-1"></i>
+      Click Enter to send
+    </small>
+  <% end %>
+</div>
+
+<!-- 简单的JavaScript（放在partial底部或单独文件） -->
+<script>
+  // 只为当前聊天的输入框添加事件监听
+  document.addEventListener('DOMContentLoaded', function() {
+    const textarea = document.getElementById('message_content_<%= chat.id %>');
+    const form = textarea?.closest('form');
+
+    if (textarea && form) {
+      textarea.addEventListener('keydown', function(e) {
+        // Enter发送，Shift+Enter换行
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          form.requestSubmit();
+        }
+      });
+    }
+  });
+</script>

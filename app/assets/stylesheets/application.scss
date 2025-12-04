@@ -10,3 +10,7 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+@import "components/chats";
+
+// le format de texte pour la réponse de l'assistant
+@import "components/markdown";
