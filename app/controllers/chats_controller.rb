@@ -1,5 +1,6 @@
 class ChatsController < ApplicationController
   before_action :authenticate_user!
+
   def index
   @chats = current_user.chats.order(created_at: :desc)
   end
@@ -12,7 +13,6 @@ class ChatsController < ApplicationController
       user: current_user,
       trip: @trip
     )
-
     if @chat.save
       redirect_to chat_path(@chat)
     else
