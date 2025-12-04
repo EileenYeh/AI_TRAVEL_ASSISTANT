@@ -1,0 +1,21 @@
+<!-- app/views/chats/_trip_info.html.erb -->
+<div class="card mb-4 trip-info-card">
+  <div class="card-body">
+    <h5 class="card-title">
+      <i class="fas fa-info-circle me-2"></i>Trip Details
+    </h5>
+    <div class="row">
+      <div class="col-md-6">
+        <p class="mb-2"><strong>Destination:</strong> <%= chat.trip.destination %></p>
+        <p class="mb-2"><strong>Departure:</strong> <%= chat.trip.departure_city %></p>
+      </div>
+      <div class="col-md-6">
+        <p class="mb-2"><strong>Travelers:</strong> <%= chat.trip.traveler_count %></p>
+        <p class="mb-2"><strong>Budget:</strong> <%= format_budget(chat.trip.budget) %></p>
+        <p class="mb-0">
+          <%= link_to "View trip details", trip_path(chat.trip), class: "btn btn-link btn-sm p-0" %>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

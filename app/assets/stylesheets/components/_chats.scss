@@ -1,0 +1,326 @@
+// app/assets/stylesheets/components/_chats.scss
+
+// ==================== Index page ====================
+
+// card standard forù
+.chat-card {
+  padding: 1.25rem 1rem;
+  border-radius: 0.75rem !important;
+  border: 1px solid $gray-300;
+  margin-bottom: 0.75rem;
+  transition: all 0.25s ease;
+  min-height: 90px;
+  position: relative;
+
+  &:hover {
+    background-color: $gray-100;
+    border-color: $gray-400;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  &.list-group-item-action {
+    &:hover,
+    &:focus {
+      z-index: 1;
+    }
+  }
+}
+
+//  right top croix delete
+.chat-close-icon {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  opacity: 0.3;
+  transition: all 0.2s ease;
+  z-index: 10;
+
+  .chat-card:hover & {
+    opacity: 0.6;
+  }
+
+  &:hover {
+    opacity: 1 !important;
+  }
+
+  .btn-link {
+    color: $gray-600 !important;
+    text-decoration: none;
+    font-size: 1.1rem;
+    padding: 0.25rem;
+
+    &:hover {
+      color: $danger !important;
+      transform: scale(1.1);
+    }
+
+    &.border-0.bg-transparent:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+// main content zone
+.chat-content {
+  display: block;
+  padding-right: 6rem;
+  text-decoration: none;
+  color: $dark;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.chat-title {
+  color: $dark;
+  transition: color 0.2s ease;
+  margin-bottom: 0.25rem;
+
+  .chat-card:hover & {
+    color: $primary;
+  }
+}
+
+// icon + text
+.chat-meta {
+  color: $gray-600;
+  font-size: 0.875rem;
+
+  i {
+    opacity: 0.7;
+    margin-right: 0.25rem;
+  }
+
+  .separator {
+    margin: 0 0.5rem;
+    opacity: 0.4;
+  }
+}
+
+// chat time on the left
+.chat-time {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  text-align: right;
+
+  small {
+    font-size: 0.8rem;
+    color: $gray-600;
+  }
+}
+
+// empty status
+.chat-empty-state {
+  .alert-info {
+    border-radius: 0.75rem;
+    border: none;
+  }
+}
+
+// ==================== Show page styles ====================
+
+// message deco
+.message-wrapper {
+  margin-bottom: 1.75rem;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  &:hover {
+    .message-time {
+      opacity: 1;
+    }
+  }
+}
+
+// buble chat mode
+.message-bubble {
+  max-width: 70%;
+  border-radius: 1rem;
+  padding: 1rem 1.25rem;
+  position: relative;
+  word-wrap: break-word;
+
+  .message-time {
+    font-size: 0.75rem;
+    opacity: 0.6;
+    display: block;
+    text-align: right;
+    transition: opacity 0.2s ease;
+  }
+}
+
+// user msg right
+.user-message {
+  background-color: $primary;
+  color: white;
+  border-bottom-right-radius: 0.25rem;
+
+  .message-time {
+    color: rgba(255, 255, 255, 0.8);
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    right: -8px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-left-color: $primary;
+    border-right: 0;
+    margin-top: -8px;
+  }
+}
+
+// Assistant msg left
+.assistant-message {
+  background-color: $gray-100;
+  color: $dark;
+  border-bottom-left-radius: 0.25rem;
+
+  .message-time {
+    color: $gray-600;
+  }
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    width: 0;
+    height: 0;
+    border: 8px solid transparent;
+    border-right-color: $gray-100;
+    border-left: 0;
+    margin-top: -8px;
+  }
+}
+
+// avatar
+.message-avatar {
+  flex-shrink: 0;
+
+  .avatar-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+}
+
+// message content zone
+.message-content {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+
+  p {
+    margin-bottom: 0.75rem;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// form zone
+.message-form {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid $gray-300;
+
+  .input-group {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+
+    .form-control {
+      border: 1px solid $gray-400;
+      border-right: none;
+      padding: 0.875rem 1rem;
+      font-size: 0.95rem;
+      min-height: 50px;
+      resize: vertical;
+
+      &:focus {
+        box-shadow: 0 0 0 0.25rem rgba($primary, 0.1);
+        border-color: $primary;
+      }
+    }
+  }
+}
+
+// ==================== responsive setting ====================
+
+@include media-breakpoint-down(md) {
+  .message-bubble {
+    max-width: 80%;
+  }
+
+  .message-avatar .avatar-circle {
+    width: 36px;
+    height: 36px;
+    font-size: 0.9rem;
+  }
+}
+
+@include media-breakpoint-down(sm) {
+  .chat-card {
+    padding: 1rem 0.75rem;
+    min-height: 85px;
+  }
+
+  .chat-close-icon {
+    .btn-link {
+      font-size: 1rem;
+    }
+  }
+
+  .chat-content {
+    padding-left: 1.75rem;
+    padding-right: 5rem;
+  }
+
+  .chat-time {
+    small {
+      font-size: 0.75rem;
+    }
+  }
+
+  .chat-title {
+    font-size: 1rem;
+  }
+
+  .chat-meta {
+    font-size: 0.8rem;
+  }
+
+  .message-bubble {
+    max-width: 85%;
+    padding: 0.75rem 1rem;
+  }
+
+  .message-avatar .avatar-circle {
+    width: 32px;
+    height: 32px;
+    font-size: 0.8rem;
+  }
+}
+
+// ==================== animation effect ====================
+
+@keyframes chat-fade-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-10px); }
+}
+
+.chat-deleting {
+  animation: chat-fade-out 0.3s ease forwards;
+}

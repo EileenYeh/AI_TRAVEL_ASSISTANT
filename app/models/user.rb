@@ -8,4 +8,11 @@ class User < ApplicationRecord
   has_many :trips, dependent: :destroy
   has_many :messages, through: :chats
 
+  # offrir le choix de currency à l'user
+  validates :currency, inclusion: { in: ['EUR', 'USD'] }, allow_nil: true
+
+  # la methode pour mettre par défaut currency EUR
+  def currency_with_default
+    currency.presence || 'EUR'
+  end
 end
