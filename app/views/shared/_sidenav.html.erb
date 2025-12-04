@@ -1,0 +1,15 @@
+<ul class="position-sticky sticky-top nav flex-column">
+  <li class="nav-item">
+    <%= link_to "#",
+            class: "nav-link text-dark",
+            data: { action: "click->toggle#call", toggle_target: "hide" } do %> <%# data-action ici%>
+  <i class="fa-regular fa-square-caret-left"></i>
+  <% end %>
+
+  </li>
+  <% trips.each do |trip| %>
+    <li class="nav-item">
+      <%= link_to trip.destination, trip_path(trip), class: "nav-link text-dark" %>
+    </li>
+  <% end %>
+</ul>

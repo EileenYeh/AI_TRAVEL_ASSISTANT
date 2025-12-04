@@ -6,6 +6,7 @@ class TripsController < ApplicationController
   def index
     @trips = current_user.trips
     # au lieu de @trips = Trip.all car on a des users avec devise
+    # + évite que tous les users voient les voyages des autres = évite faille de confidentialité
   end
 
   def show

@@ -1,5 +1,5 @@
 <%= form_with model: @trip do |f| %>
-  <%# les lignes suivantess sont là pour l'utilisateur si jamais champs pas rempl (validates) %>
+  <%# les lignes suivantess sont là pour l'utilisateur si jamais champs pas remplis (validates) %>
   <% if @trip.errors.any? %>
     <div class="alert alert-danger">
       <h4><%= pluralize(@trip.errors.count, "erreur") %> :</h4>
