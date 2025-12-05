@@ -1,43 +1,25 @@
 <!-- app/views/chats/show.html.erb -->
-<div class="container">
-  <h1><%= @chat.title %></h1>
-  <p class="text-muted">
-    <strong>Trip Details:</strong><br>
-    Destination: <%= @chat.trip.destination %><br>
-    Departure: <%= @chat.trip.departure_city %><br>
-    Dates: <%= @chat.trip.start_date %> to <%= @chat.trip.end_date %><br>
-    Travelers: <%= @chat.trip.traveler_count %> | Budget: $<%= @chat.trip.budget %>
-  </p>
+<div class="container chat-show">
+  <%= render "header", chat: @chat %>
+  <%= render "trip_info", chat: @chat %>
+  <%= render "messages", messages: @messages %>
+  <%= render "message_form", chat: @chat, message: @message %>
 
-  <!-- Liste des messages -->
-  <div id="messages" class="mb-4">
-    <% @messages.each do |message| %>
-      <div class="message <%= message.role %>">
-        <strong><%= message.role == "user" ? "Vous" : "Assistant" %>:</strong>
-        <p><%= message.content %></p>
-
-        <!-- Affichage des fichiers -->
-        <% if message.files.attached? %>
-          <% message.files.each do |file| %>
-            <% if file.image? %>
-              <%= image_tag file, style: "max-width: 200px;", class: "mb-2 d-block" %>
-            <% else %>
-              <%= link_to file.filename.to_s, url_for(file), class: "d-block mb-2", target: "_blank" %>
-            <% end %>
-          <% end %>
-        <% end %>
-
-      </div>
+  <!-- Affichage des fichiers -->
+  <% if @message.files.attached? %>
+    <% @message.files.each do |file| %>
+      <% if file.image? %>
+        <%= image_tag file, style: "max-width: 200px;", class: "mb-2 d-block" %>
+      <% else %>
+        <%= link_to file.filename.to_s, url_for(file), class: "d-block mb-2", target: "_blank" %>
+      <% end %>
     <% end %>
-  </div>
+  <% end %>
 
   <!-- Formulaire envoi -->
   <div id="new_message">
     <%= form_with model: [@chat, @message], multipart: true, local: true do |f| %>
-      <%= f.text_area :content, placeholder: "Posez votre question...", class: "form-control mb-2" %>
       <%= f.file_field :files, multiple: true, class: "form-control mb-2" %>
-      <%= f.submit "Envoyer", class: "btn btn-primary" %>
     <% end %>
   </div>
-
 </div>

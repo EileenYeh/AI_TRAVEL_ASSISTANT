@@ -1,0 +1,78 @@
+<%# app/views/chats/_message_form_with_files.html.erb %>
+<%# Formulaire de message avec upload de fichiers %>
+<div id="message_form_<%= chat.id %>" class="message-form">
+  <%= simple_form_for [chat, message],
+                      html: {
+                        class: "message-form-with-files",
+                        data: {
+                          controller: "message-form",
+                          action: "submit->message-form#clearInput"
+                        }
+                      } do |f| %>
+
+    <%# Zone de texte %>
+    <div class="input-group mb-2">
+      <%= f.input :content,
+                  label: false,
+                  placeholder: "Tapez votre message ou posez une question...",
+                  input_html: {
+                    class: "form-control",
+                    rows: 1,
+                    id: "message_content_#{chat.id}",
+                    data: {
+                      action: "keydown->message-form#handleKeydown",
+                      message_form_target: "input"
+                    }
+                  },
+                  wrapper: false %>
+
+      <button type="submit" class="btn btn-primary" data-message-form-target="submitBtn">
+        <i class="fas fa-paper-plane me-1"></i>Envoyer
+      </button>
+    </div>
+
+    <%# Zone d'upload de fichiers %>
+    <div class="file-upload-area mb-2">
+      <%= f.input :files,
+                  as: :file,
+                  label: false,
+                  input_html: {
+                    multiple: true,
+                    class: "form-control-file d-none",
+                    id: "file_input_#{chat.id}",
+                    data: {
+                      action: "change->message-form#previewFiles",
+                      message_form_target: "fileInput"
+                    }
+                  },
+                  wrapper_html: { class: "mb-0" } %>
+
+      <div class="file-upload-ui">
+        <button type="button"
+                class="btn btn-outline-secondary btn-sm"
+                data-action="click->message-form#triggerFileInput">
+          <i class="fas fa-paperclip me-1"></i>Joindre des fichiers
+        </button>
+
+        <small class="text-muted ms-2">
+          Formats supportés: images, PDF, documents (max 10MB par fichier)
+        </small>
+      </div>
+
+      <%# Prévisualisation des fichiers sélectionnés %>
+      <div class="file-previews mt-2" data-message-form-target="previewContainer"></div>
+    </div>
+
+    <%# Instructions clavier %>
+    <small class="text-muted d-block">
+      <i class="fas fa-info-circle me-1"></i>
+      Appuyez sur <kbd>Entrée</kbd> pour envoyer, <kbd>Shift</kbd>+<kbd>Entrée</kbd> pour une nouvelle ligne
+    </small>
+
+    <%# Exemple de requête météo %>
+    <small class="text-muted d-block mt-1">
+      <i class="fas fa-cloud-sun me-1"></i>
+      Essayez: "Quel temps fait-il à Paris ?" pour obtenir la météo
+    </small>
+  <% end %>
+</div>

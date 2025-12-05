@@ -1,0 +1,58 @@
+<%# app/views/chats/_message.html.erb %>
+<%# Affichage d'un message avec ou sans fichiers %>
+<div class="message-wrapper" data-role="<%= message.role %>">
+  <% if message.role == "user" %>
+    <%# Message utilisateur (à droite) %>
+    <div class="d-flex justify-content-end mb-3">
+      <div class="message-content-wrapper">
+        <div class="message-bubble user-message">
+          <div class="message-text">
+            <%= simple_format(message.content) %>
+          </div>
+
+          <%# Affichage des fichiers attachés %>
+          <%= render "chats/message_files", message: message %>
+
+          <small class="message-time d-block text-end mt-2">
+            <%= message.created_at.strftime("%H:%M") %>
+          </small>
+        </div>
+      </div>
+      <div class="message-avatar ms-3">
+        <div class="avatar-circle bg-primary text-white" title="Vous">
+          <i class="fas fa-user"></i>
+        </div>
+      </div>
+    </div>
+  <% else %>
+    <%# Message assistant (à gauche) %>
+    <div class="d-flex justify-content-start mb-3">
+      <div class="message-avatar me-3">
+        <div class="avatar-circle bg-success text-white" title="Assistant IA">
+          <i class="fas fa-robot"></i>
+        </div>
+      </div>
+      <div class="message-content-wrapper">
+        <div class="message-bubble assistant-message">
+          <div class="message-text">
+            <%= render_markdown(message.content) %>
+          </div>
+
+          <%# Affichage des fichiers attachés (si l'assistant en envoie) %>
+          <%= render "chats/message_files", message: message %>
+
+          <small class="message-time d-block text-end mt-2">
+            <%= message.created_at.strftime("%H:%M") %>
+          </small>
+        </div>
+
+        <%# Indicateur météo si pertinent %>
+        <% if message.content.include?("météo") || message.content.include?("Météo") %>
+          <small class="weather-indicator text-muted">
+            <i class="fas fa-cloud-sun me-1"></i>Données météo en temps réel
+          </small>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>

@@ -3,10 +3,19 @@
 
   <!-- Infos du voyage -->
   <ul class="list-group mb-3">
-    <li class="list-group-item"><strong>Ville de départ :</strong> <%= @trip.departure_city %></li>
-    <li class="list-group-item"><strong>Dates :</strong> du <%= @trip.start_date %> au <%= @trip.end_date %></li>
-    <li class="list-group-item"><strong>Nombre de voyageurs :</strong> <%= @trip.traveler_count %></li>
-    <li class="list-group-item"><strong>Budget :</strong> <%= @trip.budget %> €</li>
+    <li class="list-group-item">
+      <strong>Ville de départ :</strong> <%= @trip.departure_city %>
+    </li>
+    <li class="list-group-item">
+      <strong>Dates :</strong>
+      du <%= @trip.start_date %> au <%= @trip.end_date %>
+    </li>
+    <li class="list-group-item">
+      <strong>Nombre de voyageurs :</strong> <%= @trip.traveler_count %>
+    </li>
+    <li class="list-group-item">
+      <strong>Budget :</strong> <%= format_budget(@trip.budget) %>
+    </li>
   </ul>
 
   <!-- Boutons -->
@@ -43,4 +52,3 @@
     </div>
   <% end %>
 </div>
-

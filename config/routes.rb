@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   end
 
   # chats (en dehors du nesting pour show /edit/upate/destroy)
-  resources :chats, only: [:index, :show] do
+  resources :chats, only: [:index, :show, :destroy] do
     resources :messages, only: [:create]
   end
 

@@ -216,6 +216,10 @@ GEM
       racc (~> 1.4)
     nokogiri (1.18.10-x86_64-linux-musl)
       racc (~> 1.4)
+    open-uri (0.5.0)
+      stringio
+      time
+      uri
     orm_adapter (0.5.0)
     pg (1.6.2)
     pg (1.6.2-aarch64-linux)
@@ -279,6 +283,7 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
+    redcarpet (3.6.1)
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -286,6 +291,7 @@ GEM
       actionpack (>= 7.0)
       railties (>= 7.0)
     rexml (3.4.4)
+    rouge (4.6.1)
     ruby_llm (1.2.0)
       base64
       event_stream_parser (~> 1)
@@ -323,6 +329,8 @@ GEM
     stringio (3.1.8)
     thor (1.4.0)
     tilt (2.6.1)
+    time (0.4.1)
+      date
     timeout (0.4.4)
     tsort (0.2.0)
     turbo-rails (2.0.20)
@@ -370,9 +378,12 @@ DEPENDENCIES
   font-awesome-sass (~> 6.1)
   importmap-rails
   jbuilder
+  open-uri
   pg (~> 1.1)
   puma (>= 5.0)
   rails (~> 7.1.6)
+  redcarpet
+  rouge
   ruby_llm (~> 1.2.0)
   sassc-rails
   selenium-webdriver
