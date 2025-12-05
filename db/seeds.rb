@@ -37,7 +37,57 @@ user1.trips.create!(
   traveler_count: 2,
   budget: 2000
 )
+user1.trips.create!(
+  destination: 'New York',
+  departure_city: 'Lyon',
+  start_date: Date.today + 60,
+  end_date: Date.today + 68,
+  traveler_count: 1,
+  budget: 1200
+)
+user1.trips.create!(
+  destination: 'Barcelone',
+  departure_city: 'Marseille',
+  start_date: Date.today + 10,
+  end_date: Date.today + 15,
+  traveler_count: 4,
+  budget: 1500
+)
+
 user2.trips.create!(
+  destination: 'Tokyo',
+  departure_city: 'Paris',
+  start_date: Date.today + 30,
+  end_date: Date.today + 40,
+  traveler_count: 2,
+  budget: 2000
+)
+user2.trips.create!(
+  destination: 'New York',
+  departure_city: 'Lyon',
+  start_date: Date.today + 60,
+  end_date: Date.today + 68,
+  traveler_count: 1,
+  budget: 1200
+)
+user2.trips.create!(
+  destination: 'Barcelone',
+  departure_city: 'Marseille',
+  start_date: Date.today + 10,
+  end_date: Date.today + 15,
+  traveler_count: 4,
+  budget: 1500
+)
+
+user3.trips.create!(
+  destination: 'Tokyo',
+  departure_city: 'Paris',
+  start_date: Date.today + 30,
+  end_date: Date.today + 40,
+  traveler_count: 2,
+  budget: 2000
+)
+user3.trips.create!(
   destination: 'New York',
   departure_city: 'Lyon',
   start_date: Date.today + 60,

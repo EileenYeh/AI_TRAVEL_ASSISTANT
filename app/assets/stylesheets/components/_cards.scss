@@ -1,0 +1,24 @@
+.card-category {
+  height: 280px;
+  border-radius: 20px;
+  background-size: cover;
+  background-position: center 25%;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  color: white;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transition: transform 0.2s ease;
+}
+
+.card-category:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-gap: 24px;
+}
