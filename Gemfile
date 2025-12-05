@@ -30,6 +30,7 @@ gem "devise"
 gem "ruby_llm", "~> 1.2.0"
 gem 'redcarpet'
 gem 'rouge'
+gem 'open-uri'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

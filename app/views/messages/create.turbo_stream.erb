@@ -1,0 +1,18 @@
+<!-- app/views/messages/create.turbo_stream.erb -->
+<!-- add new msg -->
+<%= turbo_stream.append "messages" do %>
+  <%= render "chats/message", message: @chat.messages.last(2).first %> <!-- user msg -->
+  <%= render "chats/message", message: @chat.messages.last %> <!-- AI reply -->
+<% end %>
+
+<!-- clean list -->
+<%= turbo_stream.update "new_message_container" do %>
+  <%= render "chats/message_form", chat: @chat, message: Message.new %>
+<% end %>
+
+<!-- opt. refresh / edit title-->
+<% if @chat.title_previously_changed? %>
+  <%= turbo_stream.update "chat_title", @chat.title %>
+<% end %>
+
+<%# fichier cours :Rails/rails-ai-challenges/app/views/messages/create.turbo_stream.erb en référence%>

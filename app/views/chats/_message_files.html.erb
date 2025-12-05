@@ -1,0 +1,46 @@
+<%# app/views/chats/_message_files.html.erb %>
+<%# Partial pour afficher les fichiers attachés à un message %>
+<% if message.files.attached? %>
+  <div class="message-files mt-3">
+    <% message.files.each do |file| %>
+      <div class="file-attachment mb-2">
+        <% if file.image? %>
+          <%# Affichage des images avec lightbox optionnel %>
+          <%= link_to url_for(file),
+                      data: { toggle: "lightbox", gallery: "message-gallery" },
+                      class: "d-block" do %>
+            <%= image_tag file,
+                          class: "img-fluid rounded border",
+                          style: "max-height: 200px; max-width: 300px;",
+                          alt: "Image jointe" %>
+          <% end %>
+        <% elsif file.previewable? %>
+          <%# Prévisualisation pour les PDFs %>
+          <%= link_to url_for(file),
+                      target: "_blank",
+                      class: "file-preview d-flex align-items-center p-2 bg-light rounded" do %>
+            <i class="fas fa-file-pdf text-danger me-2"></i>
+            <span><%= file.filename %></span>
+          <% end %>
+        <% elsif file.video? %>
+          <%# Affichage des vidéos %>
+          <div class="video-attachment">
+            <%= video_tag url_for(file),
+                          controls: true,
+                          class: "w-100 rounded",
+                          style: "max-height: 200px;" %>
+          </div>
+        <% else %>
+          <%# Autres types de fichiers %>
+          <%= link_to url_for(file),
+                      target: "_blank",
+                      class: "file-download d-flex align-items-center p-2 bg-light rounded" do %>
+            <i class="fas fa-file text-secondary me-2"></i>
+            <span><%= file.filename %></span>
+            <small class="text-muted ms-2">(<%= number_to_human_size(file.byte_size) %>)</small>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
