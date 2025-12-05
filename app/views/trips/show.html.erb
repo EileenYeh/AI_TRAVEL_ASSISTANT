@@ -1,32 +1,46 @@
 <div class="container mt-4">
   <h1>Voyage à <%= @trip.destination %></h1>
 
+  <!-- Infos du voyage -->
   <ul class="list-group mb-3">
-    <li class="list-group-item">
-      <strong>Ville de départ :</strong> <%= @trip.departure_city %>
-    </li>
-    <li class="list-group-item">
-      <strong>Dates :</strong>
-      du <%= @trip.start_date %> au <%= @trip.end_date %>
-    </li>
-    <li class="list-group-item">
-      <strong>Nombre de voyageurs :</strong> <%= @trip.traveler_count %>
-    </li>
-    <li class="list-group-item">
-      <strong>Budget :</strong> <%= @trip.budget %> €
-    </li>
+    <li class="list-group-item"><strong>Ville de départ :</strong> <%= @trip.departure_city %></li>
+    <li class="list-group-item"><strong>Dates :</strong> du <%= @trip.start_date %> au <%= @trip.end_date %></li>
+    <li class="list-group-item"><strong>Nombre de voyageurs :</strong> <%= @trip.traveler_count %></li>
+    <li class="list-group-item"><strong>Budget :</strong> <%= @trip.budget %> €</li>
   </ul>
 
+  <!-- Boutons -->
   <div class="d-flex gap-2 mb-3">
     <%= link_to "Modifier ce voyage", edit_trip_path(@trip), class: "btn btn-outline-primary" %>
     <%= link_to "Retour à mes voyages", trips_path, class: "btn btn-secondary" %>
-    <%= button_to "Supprimer ce voyage", trip_path(@trip),
-                  method: :delete,
-                  data: { confirm: "Tu es sûr de vouloir supprimer ce voyage ?" },
-                  class: "btn btn-danger" %>
+    <%= button_to "Supprimer ce voyage", trip_path(@trip), method: :delete,
+          data: { confirm: "Tu es sûr de vouloir supprimer ce voyage ?" },
+          class: "btn btn-danger" %>
+    <%= link_to "Create New Chat", trip_chats_path(@trip), data: { turbo_method: "POST" }, class: "btn btn-primary" %>
   </div>
 
-  <%# ici bouton pour démarrer chat avec IA + link_to %>
-  <%# ici bouton pour démarrer chat avec IA + link_to %>
-   <%= link_to "Create New Chat", trip_chats_path(@trip), data: { turbo_method: "POST" }, class: "btn btn-primary" %>
+  <!-- Messages du chat -->
+  <% @trip.chats.each do |chat| %>
+    <div class="chat-box mb-4">
+      <h3>Chat #<%= chat.id %></h3>
+
+      <% chat.messages.each do |message| %>
+        <div class="message mb-3">
+          <strong><%= message.role.capitalize %> :</strong>
+          <p><%= message.content %></p>
+
+          <% if message.files.attached? %>
+            <% message.files.each do |file| %>
+              <% if file.image? %>
+                <%= image_tag file, style: "max-width: 200px;", class: "mb-2 d-block" %>
+              <% else %>
+                <%= link_to file.filename.to_s, rails_blob_path(file, disposition: "attachment") %>
+              <% end %>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
+

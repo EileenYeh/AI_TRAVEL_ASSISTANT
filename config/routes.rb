@@ -17,11 +17,12 @@ Rails.application.routes.draw do
   # ils nous faut des routes chats :
   # /chats post create
   # /chats/:id  get show
-
+  resources :trips do
+    resources :chats, only: [:create]
+  end
 
   # chats (en dehors du nesting pour show /edit/upate/destroy)
-  resources :trips
-  resources :chats, only: [:index, :show, :create] do
+  resources :chats, only: [:index, :show] do
     resources :messages, only: [:create]
   end
 
