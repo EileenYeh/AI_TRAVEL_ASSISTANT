@@ -1,0 +1,76 @@
+.trips-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px 0 40px;
+}
+
+.trips-header {
+  margin-bottom: 24px;
+
+  h1 {
+    font-size: 40px;
+    margin-bottom: 8px;
+  }
+
+  p {
+    margin-bottom: 16px;
+    color: #666;
+  }
+
+  .trips-new-btn {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+.trips-grid {
+  margin-top: 8px;
+}
+
+.trip-card {
+  border: none;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  background-color: #ffffff;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.08);
+  }
+}
+
+.trip-card-body {
+  padding: 16px 18px 18px;
+}
+
+.trip-title {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+
+.trip-dates {
+  font-size: 14px;
+  color: #777;
+  margin-bottom: 8px;
+}
+
+.trip-meta {
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.trips-page {
+  // tu peux laisser vide, Bootstrap fait déjà le gros du travail
+}
+
+.trip-card {
+  border-radius: 18px;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+}
+
+.trip-card-body {
+  padding: 18px 20px 22px;
+}

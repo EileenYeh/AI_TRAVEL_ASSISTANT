@@ -17,25 +17,28 @@
       <%= render "shared/navbar" %>
     </header>
 
-      <main id="main-content"class="flex-grow-1">
-    <div class="container-fluid">
-      <div class="row" data-controller="toggle">
-        <nav class="col-md-2 sidenav pt-3" data-toggle-target="hideable">
-          <% if user_signed_in? %>
-            <%= render "shared/sidenav", trips: current_user.trips %>
-          <% end %>
-        </nav>
+    <main id="main-content"class="flex-grow-1">
+      <div class="container-fluid">
+        <div class="row min-vh-100" data-controller="toggle"> <%# toggle dans div pour texte fixe%>
+          <nav class="col-md-2 sidenav pt-3">
+            <% if user_signed_in? %>
+              <div data-toggle-target="hideable">
+                <%= render "shared/sidenav", trips: current_user.trips %>
+        </div>
+            <% end %>
+          </nav>
 
-        <div class="col-md-10 my-4">
-          <%= render "shared/flashes" %>
-          <%= link_to "#", class: "d-none nav-link text-dark",
-                data: { action: "click->toggle#call", toggle_target: "show" } do %>
-            <i class="fa-regular fa-square-caret-right"></i>
-          <% end %>
-          <%= yield %>
+      <div class="col-md-10 my-4">
+        <%= render "shared/flashes" %>
+        <%= link_to "#",
+          class: "d-none nav-link text-dark",
+          data: { action: "click->toggle#call", toggle_target: "show" } do %>
+        <i class="fa-regular fa-square-caret-right"></i>
+        <% end %>
+        <%= yield %>
+        </div>
         </div>
       </div>
-    </div>
   </main>
 
   <%= render "shared/footer" %>

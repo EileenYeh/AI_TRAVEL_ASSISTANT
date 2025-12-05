@@ -1,0 +1,21 @@
+.sidenav {
+  background: #faf9f7;
+  min-height: 100%;
+  padding-top: 16px;
+  padding-left: 12px;
+  border-right: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e0dedb;
+
+  .nav-link {
+    font-size: 20px;
+    color: #555;
+
+    &.active {
+      font-weight: 600;
+    }
+
+    &:hover {
+      color: #000;
+    }
+  }
+}

@@ -1,27 +1,32 @@
-<div class="container mt-4">
-  <h1 class="mb-3">Mes voyages</h1>
+<div class="trips-page">
 
-  <%= link_to "Créer un nouveau voyage", new_trip_path, class: "btn btn-primary mb-4" %>
+  <div class="trips-header">
+    <h1>Mes idées voyages ✈️</h1>
+    <p>Note ici tes idées d’aventures et d’escapades, puis demande à notre assistant IA de t’aider à les planifier !</p>
+    <%= link_to "Créer un nouveau voyage", new_trip_path, class: "btn btn-primary trips-new-btn" %>
+  </div>
 
-  <% if @trips.any? %>
-    <div class="row">
-      <% @trips.each do |trip| %>
-        <div class="col-md-4 mb-3">
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title"><%= trip.destination %></h5>
-              <p class="card-text">
-                Du <%= trip.start_date %> au <%= trip.end_date %><br>
-                <strong>Voyageurs :</strong> <%= trip.traveler_count %><br>
-                <strong>Budget :</strong> <%= trip.budget %> €
-              </p>
-              <%= link_to "Voir le voyage", trip_path(trip), class: "btn btn-sm btn-outline-primary" %>
-            </div>
+  <div class="cards mt-4">
+    <% @trips.each do |trip| %>
+      <%= link_to trip_path(trip), class: "text-decoration-none" do %>
+
+        <div class="card-category"
+            style="background-image:
+                      linear-gradient(rgba(0,0,0,0.35), rgba(0,0,0,0.35)),
+                      url('<%= asset_path("barcelone.webp") %>');">
+
+          <div class="card-category-content">
+            <h3><%= trip.destination %></h3>
+            <p>
+              Du <%= trip.start_date %> au <%= trip.end_date %><br>
+              <strong><%= trip.traveler_count %> voyageur(s)</strong> ·
+              <%= number_to_currency(trip.budget, unit: "€", format: "%n %u") %>
+            </p>
           </div>
+
         </div>
+
       <% end %>
-    </div>
-  <% else %>
-    <p>Tu n'as pas encore créé de voyage.</p>
-  <% end %>
+    <% end %>
+  </div>
 </div>
