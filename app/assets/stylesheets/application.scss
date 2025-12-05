@@ -16,3 +16,14 @@
 
 // le format de texte pour la réponse de l'assistant
 @import "components/markdown";
+
+
+@import "components/sidenav";
+
+
+body {
+  background-color: #faf9f7;;
+}
+
+@import "components/trips";
+@import "components/cards";
